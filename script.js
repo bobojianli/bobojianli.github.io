@@ -1,6 +1,18 @@
 /* =========================
    全局变量 & 重置
 ========================= */
+// ===== 弹窗控制 =====
+const modal = document.getElementById('gobangModal');
+const startBtn = document.getElementById('gobangStart');
+const closeBtn = document.getElementById('gobangClose');
+if (startBtn) startBtn.onclick = function () { modal.style.display = 'flex'; };
+if (closeBtn) closeBtn.onclick = function () { modal.style.display = 'none'; };
+document.querySelectorAll('.diff-btn').forEach(btn => {
+    btn.onclick = function () {
+        let lv = this.dataset.level;
+        if (typeof initGobang === 'function') initGobang(lv);
+    };
+});
 :root {
     --bg-primary: #ffffff;
     --bg-secondary: #f5f8fc;
