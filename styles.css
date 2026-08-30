@@ -2250,3 +2250,12 @@ ul {
         letter-spacing: 6px;
     }
 }
+.relax-wrap{
+  display:flex;
+  gap:24px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.game-card{
+  width:320px;
+}
