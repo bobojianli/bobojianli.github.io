@@ -267,19 +267,33 @@ function showModal(text, emoji) {
     if (!modal) return;
     modal.innerHTML = '';
     var wrap = document.createElement('div');
-    wrap.style.cssText = 'background:#fff;padding:40px 32px;border-radius:16px;text-align:center;';
+    wrap.style.cssText = 'background:#fff;padding:40px 32px;border-radius:16px;text-align:center;position:relative;';
+
+    // 右上角关闭×按钮
+    var closeBtn = document.createElement('button');
+    closeBtn.innerText = '×';
+    closeBtn.style.cssText = 'position:absolute;top:12px;right:16px;border:none;background:none;font-size:24px;cursor:pointer;color:#666;';
+    closeBtn.onclick = function () {
+        modal.style.display = 'none';
+    };
+
     var emojiDiv = document.createElement('div');
     emojiDiv.style.cssText = 'font-size:60px;margin-bottom:16px;';
     emojiDiv.innerText = emoji;
+
     var textDiv = document.createElement('div');
     textDiv.style.cssText = 'font-size:28px;font-weight:bold;color:#1a2a42;margin-bottom:24px;';
     textDiv.innerText = text;
+
     var btn = document.createElement('button');
     btn.innerText = '再来一局';
     btn.style.cssText = 'background:linear-gradient(135deg,#2b6cff,#1a56e0);color:#fff;border:none;padding:12px 32px;border-radius:8px;font-size:16px;cursor:pointer;font-weight:bold;';
     btn.onclick = function () {
         initGobang();
+        modal.style.display = 'none';
     };
+
+    wrap.appendChild(closeBtn);
     wrap.appendChild(emojiDiv);
     wrap.appendChild(textDiv);
     wrap.appendChild(btn);
