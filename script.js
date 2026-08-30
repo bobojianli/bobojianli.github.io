@@ -260,6 +260,60 @@ function triggerWinEffect(x, y) {
             boardDom.style.boxShadow = '';
         }
     }, 150);
+
+    // 新增：全屏烟花粒子
+    createFireworks();
+}
+
+// 烟花实现函数，直接追加到script.js末尾
+function createFireworks() {
+    const canvas = document.createElement('canvas');
+    canvas.style.position = 'fixed';
+    canvas.style.left = '0';
+    canvas.style.top = '0';
+    canvas.style.width = '100vw';
+    canvas.style.height = '100vh';
+    canvas.style.pointerEvents = 'none';
+    canvas.style.zIndex = '9999';
+    document.body.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+    for(let i=0;i<120;i++){
+        particles.push({
+            x: canvas.width/2,
+            y: canvas.height*0.35,
+            vx: (Math.random()-0.5)*12,
+            vy: (Math.random()-0.5)*12 -4,
+            r: Math.random()*3+1,
+            color: `hsl(${Math.random()*360},85%,60%)`,
+            life: 120
+        })
+    }
+
+    function render(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        for(let i=particles.length-1;i>=0;i--){
+            let p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy +=0.15;
+            p.life--;
+            ctx.beginPath();
+            ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+            ctx.fillStyle=p.color;
+            ctx.fill();
+            if(p.life <=0) particles.splice(i,1);
+        }
+        if(particles.length>0){
+            requestAnimationFrame(render);
+        }else{
+            canvas.remove();
+        }
+    }
+    render();
 }
 // ===== 弹窗 =====
 function showModal(text, emoji) {
