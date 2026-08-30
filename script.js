@@ -255,21 +255,37 @@ function triggerWinEffect(x, y) {
     var flash = setInterval(function () {
         boardDom.style.boxShadow = count % 2 === 0 ? '0 0 30px 10px rgba(255,215,0,0.8)' : '0 0 0 0 transparent';
         count++;
-        if (count > 6) clearInterval(flash);
+        if (count > 6) {
+            clearInterval(flash);
+            boardDom.style.boxShadow = '';
+        }
     }, 150);
 }
-
 // ===== 弹窗 =====
 function showModal(text, emoji) {
     var modal = document.getElementById('gobangModal');
     if (!modal) return;
-    var inner = modal.querySelector('div');
-    if (inner) {
-        inner.innerHTML = '<div style="font-size:60px;margin-bottom:16px;">' + emoji + '</div><div style="font-size:28px;font-weight:bold;color:#1a2a42;margin-bottom:24px;">' + text + '</div><button onclick="initGobang();" style="background:linear-gradient(135deg,#2b6cff,#1a56e0);color:#fff;border:none;padding:12px 32px;border-radius:8px;font-size:16px;cursor:pointer;font-weight:bold;">再来一局</button>';
-    }
+    modal.innerHTML = '';
+    var wrap = document.createElement('div');
+    wrap.style.cssText = 'background:#fff;padding:40px 32px;border-radius:16px;text-align:center;';
+    var emojiDiv = document.createElement('div');
+    emojiDiv.style.cssText = 'font-size:60px;margin-bottom:16px;';
+    emojiDiv.innerText = emoji;
+    var textDiv = document.createElement('div');
+    textDiv.style.cssText = 'font-size:28px;font-weight:bold;color:#1a2a42;margin-bottom:24px;';
+    textDiv.innerText = text;
+    var btn = document.createElement('button');
+    btn.innerText = '再来一局';
+    btn.style.cssText = 'background:linear-gradient(135deg,#2b6cff,#1a56e0);color:#fff;border:none;padding:12px 32px;border-radius:8px;font-size:16px;cursor:pointer;font-weight:bold;';
+    btn.onclick = function () {
+        initGobang();
+    };
+    wrap.appendChild(emojiDiv);
+    wrap.appendChild(textDiv);
+    wrap.appendChild(btn);
+    modal.appendChild(wrap);
     modal.style.display = 'flex';
 }
-
 function hideModal() {
     // 保留弹窗显示，不隐藏
 }
