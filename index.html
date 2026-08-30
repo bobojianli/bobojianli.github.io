@@ -137,14 +137,25 @@
             <div class="section-divider"></div>
             <p class="section-subtitle">工地累了？来盘棋或打把牌，休息一下吧</p>
 
-            <div class="relax-wrap">
-                <div class="game-card" data-game="gomoku">
+           <div class="game-card" data-game="gomoku">
     <div class="game-icon">●</div>
     <h3>五子棋</h3>
     <p class="text-muted">双人对战 · 先连成五子者胜</p>
     <button class="game-btn" id="gobangStart">开始游戏 →</button>
-    <div id="gobangBoard" style="margin-top:20px;"></div>
-</div
+    <!-- 五子棋弹窗，默认隐藏 -->
+    <div id="gobangModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;">
+        <div style="background:#ffffff;padding:24px;border-radius:12px;max-width:90vw;">
+            <h4 style="margin:0 0 12px 0;">选择AI难度</h4>
+            <div style="margin:12px 0;display:flex;gap:8px;">
+                <button class="diff-btn" data-level="easy">简单</button>
+                <button class="diff-btn" data-level="normal">普通</button>
+                <button class="diff-btn" data-level="hard">困难</button>
+            </div>
+            <div id="gobangBoard"></div>
+            <button id="gobangClose" style="margin-top:12px;">关闭对局</button>
+        </div>
+    </div>
+</div>
 
                     <button class="game-card" data-game="doudizhu">
                         <div class="game-icon">🃏</div>
